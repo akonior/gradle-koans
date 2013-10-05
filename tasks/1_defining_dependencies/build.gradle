@@ -1,0 +1,35 @@
+task verify << {
+    assert ['A', 'B', 'C', 'D', 'E'].every { tasks.findByPath(it) }
+	assert B.dependsOn.contains(A)
+	assert C.dependsOn.flatten().containsAll([B, D])
+	assert E.dependsOn.contains(D)
+	['A', 'B', 'C', 'D', 'E'].each { assert tasks.findByPath(it).description == "Description of task $it" }
+}
+
+/*
+ * INSTRUCTION
+ * ===========
+ * 1. Define following task structure
+ *    A <- B <- C
+ *              |
+ *              v
+ *              D <- E
+ *
+ * 2. Give every task description: "Description of task <TASK_NAME>"
+ *
+ */
+
+// ------------ START EDITING HERE ----------------------
+task A
+task B(dependsOn: A)
+task D
+task C(dependsOn: [B, D])
+task E(dependsOn: D)
+
+['A', 'B', 'C', 'D', 'E'].each {
+    project."$it" {
+        description = "Description of task $it.name"
+    }
+}
+// ------------ STOP EDITING HERE  ----------------------
+

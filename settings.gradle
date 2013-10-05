@@ -1,1 +1,12 @@
-include 'tasks/1_defining_dependencies'
+import groovy.io.FileType
+import groovy.io.FileVisitResult
+
+new File('.').traverse(
+	type: FileType.DIRECTORIES, 
+	preDir: { if (it.name ==~ /\..*/) return FileVisitResult.SKIP_SUBTREE }, 
+	excludeNameFilter: ~/\..*/, 
+	nameFilter: ~/[0-9].*/
+	) { 
+		def subproject = it.path.replaceAll('\\./', '')
+		include subproject
+	}

@@ -1,0 +1,26 @@
+task verify << {
+    (1..100).each { assert project.tasks["task$it"] }
+    (1..100).each { assert project."task$it" instanceof WarsjawaTask }
+    (1..100).each { assert project."task$it".data == it % 10 }
+}
+
+/*
+ * INSTRUCTION:
+ * ===========
+ * 1. Create tasks: 'task1', 'task2', ..., 'task100'
+ * 2. Each task should be of type WarsjawaTask
+ * 3. Configure task property 'data' to value: taskNumber % 10
+ */
+ 
+class WarsjawaTask extends DefaultTask {
+    Integer data
+}
+
+// ------------ START EDITING HERE ----------------------
+(1..100).each { taskId ->
+    task "task$taskId"(type: WarsjawaTask) {
+        data = (taskId % 10)
+    }
+}
+// ------------ STOP EDITING HERE  ----------------------
+

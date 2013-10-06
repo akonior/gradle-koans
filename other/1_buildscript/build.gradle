@@ -7,7 +7,6 @@
 ext.hash = ''
  
 task computeHash << {
-    //project.hash = 'abc'
     def hf = Hashing.md5();
     def hc = hf.newHasher().putString('abc', Charsets.UTF_8).hash();
     

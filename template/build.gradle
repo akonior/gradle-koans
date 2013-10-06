@@ -1,0 +1,13 @@
+task verify << {
+    assert true
+}
+
+/*
+ * INSTRUCTION:
+ * ===========
+ */
+
+// ------------ START EDITING HERE ----------------------
+
+// ------------ STOP EDITING HERE  ----------------------
+

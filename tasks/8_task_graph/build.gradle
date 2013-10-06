@@ -1,0 +1,25 @@
+/*
+ * INSTRUCTION:
+ * ===========
+ * 1. Use task graph to access all tasks planed to execution. 
+ * Write tasks names to tasks.txt file in the order that they will be excuted. Format them as CVS (comma-separated values): "task1, task2, ..."
+ */
+ 
+apply plugin: 'scala'
+new File('tasks.txt').delete()
+
+// ------------ START EDITING HERE ----------------------
+gradle.taskGraph.whenReady {
+    new File('tasks.txt').text = gradle.taskGraph.allTasks.collect { it.name }.join(',')
+}
+// ------------ STOP EDITING HERE  ----------------------
+
+task verify(dependsOn: scaladoc) << {
+    def tasksFile = new File('tasks.txt') 
+    assert tasksFile.exists()
+    def expected = ['compileJava', 'compileScala', 'processResources', 'classes', 'scaladoc', 'verify']
+    def taskList = tasksFile.text.split(',')*.trim()
+    assert ((0..(taskList.size() - expected.size() + 1)).any { taskList.subList(it, it + expected.size()) == expected })
+}
+
+

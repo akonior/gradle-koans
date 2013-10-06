@@ -1,1 +1,17 @@
 defaultTasks 'verify'
+
+task removeSolutions << {
+    def exercises = fileTree('.').files.findAll { it.text.contains('START EDITING HERE') && !it.name.contains('orig')}
+    exercises.each {
+        //if (!file(it.path + '.orig').exists()) {
+        //    logger.lifecycle "Copying $it.path to ${it.path + '.orig'}"
+        //    ant.copy(file: it.path, tofile: it.path + '.orig')
+        //}
+        def lines = it.readLines()
+        int start = lines.findIndexOf { it.contains('START EDITING HERE') }
+        int stop = lines.findIndexOf { it.contains('STOP EDITING HERE')}
+        assert start >= 0 && stop >= 0
+        def result = lines[0..(start)] + '' + lines[(stop)..-1]
+        it.text = result.join('\n')
+    }
+}

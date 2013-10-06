@@ -1,0 +1,24 @@
+/*
+ * INSTRUCTION:
+ * ===========
+ * 1. Disable task B so that it will be skipped during execution 
+ */
+
+ext.list = []
+
+task A << { }
+task B(dependsOn: A) << {}
+task C(dependsOn: B) << {}
+
+tasks.each { it << { list.add(name) } }
+
+// ------------ START EDITING HERE ----------------------
+project.B.enabled = false
+// ------------ STOP EDITING HERE  ----------------------
+
+task verify(dependsOn: C) << {
+    assert tasks.findByPath('B')
+    assert !list.contains('B')
+}
+
+

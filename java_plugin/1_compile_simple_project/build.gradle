@@ -1,0 +1,25 @@
+/*
+ * INSTRUCTION:
+ * ===========
+ * 1. Add java support to gradle project
+ * 2. Configure project jar task to generate myProject-1.2.3.jar
+ */
+
+// ------------ START EDITING HERE ----------------------
+apply plugin: 'java'
+
+jar {
+    baseName = 'myProject'
+    version = '1.2.3'
+}
+// ------------ STOP EDITING HERE  ----------------------
+
+task verify {
+    if (tasks.findByPath('jar')) dependsOn(jar)
+}
+
+verify << {
+    assert plugins.findPlugin('java')
+    assert file('build/libs/myProject-1.2.3.jar').exists()
+}
+

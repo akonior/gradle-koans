@@ -1,0 +1,21 @@
+/*
+ * INSTRUCTION:
+ * ===========
+ * 1. There are files in directory 'poland' with number inside. Copy all files with number > 500000 to folder 'build'.
+ *    Do it by proper configuration of task copyBigCities.
+ */
+
+file('build').deleteDir()
+task copyBigCities(type: Copy)
+
+// ------------ START EDITING HERE ----------------------
+copyBigCities {
+    from fileTree('poland').files.findAll { (it.text as Integer) > 500000 }
+    into 'build'
+}
+// ------------ STOP EDITING HERE  ----------------------
+
+task verify(dependsOn: copyBigCities) << {
+    assert fileTree('build').files*.name.sort() == ['Krakow.txt', 'Warszawa.txt'] 
+}
+

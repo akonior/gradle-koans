@@ -1,0 +1,20 @@
+/*
+ * INSTRUCTION:
+ * ===========
+ * 1. Add wrapper task to your project with 1.8 gradle version and make task 'run' depends on this task.
+ */
+
+task run
+file('gradlew').delete()
+
+// ------------ START EDITING HERE ----------------------
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '1.8'
+}
+
+run.dependsOn(wrapper)
+
+// ------------ STOP EDITING HERE  ----------------------
+
+apply from: 'verification.gradle'

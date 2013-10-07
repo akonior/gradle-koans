@@ -1,0 +1,4 @@
+task verify(dependsOn: run) << {
+    assert file('gradlew').exists()
+}
+

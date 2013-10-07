@@ -7,7 +7,7 @@ After downloading run:
 
     gradle verify --continue
 
-It should build successfulily.
+It should build successfully.
 
 Then remove all solutions by running:
 

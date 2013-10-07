@@ -1,4 +1,4 @@
-GRADLE KOANS
+Gradle Koans
 ============
 
 You can run gradle with native command `gradle` or with gradle wrapper `./gradlew`

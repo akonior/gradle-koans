@@ -1,0 +1,64 @@
+/*
+ * INSTRUCTION:
+ * ===========
+ */
+
+// ------------ START EDITING HERE ----------------------
+
+apply plugin: 'groovy'
+
+repositories {
+    mavenCentral()
+}
+
+sourceSets {
+    main {
+        java { 
+            srcDirs = []
+        }
+        groovy {
+            srcDirs = ['groovy-src', 'java-src']
+        }
+    }
+    
+    testUnit.groovy.srcDirs = ['unit-test']
+    testIntegration.groovy.srcDirs = ['integration-test']
+}
+
+task testUnit(type: Test) {
+    testClassesDir = sourceSets.testUnit.output.classesDir
+    classpath = sourceSets.testUnit.runtimeClasspath
+    beforeTest { descriptor ->
+        logger.lifecycle("#### Running unit test: " + descriptor)
+    }
+}
+
+task testIntegration(type: Test) {
+    testClassesDir = sourceSets.testIntegration.output.classesDir
+    classpath = sourceSets.testIntegration.runtimeClasspath
+    beforeTest { descriptor ->
+        logger.lifecycle("#### Running integration test: " + descriptor)
+    }
+}
+
+test {
+    dependsOn([testUnit, testIntegration])
+}
+
+dependencies {
+    compile 'org.codehaus.groovy:groovy:2.1.7'
+    
+    testUnitCompile 'org.spockframework:spock-core:0.7-groovy-2.0'
+    testUnitCompile sourceSets.main.output
+    
+    testIntegrationCompile 'org.spockframework:spock-core:0.7-groovy-2.0'
+    testIntegrationCompile sourceSets.main.output
+}
+
+jar {
+    from configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    manifest { attributes 'Main-Class': 'pl.warsjawa.WarsJava' }   
+}
+// ------------ STOP EDITING HERE  ----------------------
+
+apply from: 'verification.gradle'

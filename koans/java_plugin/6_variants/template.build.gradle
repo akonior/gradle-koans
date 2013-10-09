@@ -1,0 +1,16 @@
+/*
+ * INSTRUCTION:
+ * ===========
+ */
+
+// ------------ START EDITING HERE ----------------------
+apply plugin: 'java'
+
+sourceSets.main.java {
+    srcDir project.name
+}
+
+// ------------ STOP EDITING HERE  ----------------------
+
+apply from: 'verification.gradle'
+

@@ -1,0 +1,20 @@
+// ------------ START EDITING HERE ----------------------
+def prepareVariant(String name) {
+    def ant = new groovy.util.AntBuilder()
+    ant.sync(todir: "build/$name") {
+        fileset(dir: '.') {
+            exclude(name: 'build/**' )
+            exclude(name: 'build.gradle')
+        }
+    }
+    ant.copy(file: 'template.build.gradle', tofile: "build/$name/build.gradle")
+    
+    include "build/$name"
+    
+    project(":build/$name").name = name
+}
+
+prepareVariant('variantProd')
+prepareVariant('variantDev')
+
+// ------------ STOP EDITING HERE  ----------------------

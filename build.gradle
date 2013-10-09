@@ -3,11 +3,11 @@ defaultTasks 'verify'
 task removeSolutions << {
     String editing = 'EDITING HERE'
 
-    def exercises = fileTree('.').files.findAll { it.text.contains("START $editing") && !it.name.contains('orig')}
+    def exercises = fileTree('.').files.findAll { it.text.contains("START $editing") && !it.name.contains('solution')}
     exercises.each {
-        if (!file(it.path + '.orig').exists()) {
-            logger.lifecycle "Copying $it.path to ${it.path + '.orig'}"
-            ant.copy(file: it.path, tofile: it.path + '.orig')
+        if (!file(it.path + '.solution').exists()) {
+            logger.lifecycle "Copying $it.path to ${it.path + '.solution'}"
+            ant.copy(file: it.path, tofile: it.path + '.solution')
         }
         def lines = it.readLines()
         int start = lines.findIndexOf { it.contains("START $editing") }

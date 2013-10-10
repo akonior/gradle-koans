@@ -6,7 +6,16 @@
  */
 
 // ------------ START EDITING HERE ----------------------
+
 apply plugin: 'java'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+    testCompile 'junit:junit:4.11'
+}
 
 jar {
     baseName = 'myProject'

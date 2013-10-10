@@ -1,0 +1,28 @@
+/*
+ * INSTRUCTION:
+ * ===========
+ * 1. Create project extension with properties year, and workshop name. Use extension in printWorkshopDesc and print 
+ *    "Worskop: Gradle workshop, year 2013"
+ */
+
+// ------------ START EDITING HERE ----------------------
+
+project.extensions.create('warsjawa', WarsjawaExtension)
+
+warsjawa {
+    year = 2013
+    workshop = 'Gradle workshop'
+}
+
+class WarsjawaExtension {
+    Integer year
+    String workshop
+}
+
+task printWorkshopDesc << {
+    println "Worskop: $project.warsjawa.workshop, year $project.warsjawa.year "
+}
+
+// ------------ STOP EDITING HERE  ----------------------
+
+task verify(dependsOn: printWorkshopDesc)

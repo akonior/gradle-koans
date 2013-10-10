@@ -1,0 +1,22 @@
+/*
+ * INSTRUCTION:
+ * ===========
+ * 1. Use checkstyle and pmd to analyse project
+ */
+
+// ------------ START EDITING HERE ----------------------
+
+apply plugin: 'java'
+apply plugin: 'checkstyle'
+apply plugin: 'pmd'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile 'junit:junit:4.11'
+}
+// ------------ STOP EDITING HERE  ----------------------
+
+

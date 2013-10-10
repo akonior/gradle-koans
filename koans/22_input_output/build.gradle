@@ -1,0 +1,34 @@
+/*
+ * INSTRUCTION:
+ * ===========
+ * 1. for every folder under 'dirs' create gradle task
+ * 2. Make parent dir depends on its childrens
+ * 3. Every task should take files inside corresponding directory and sum numbers inside those files.
+ * 4. Those files should be task inputs.
+ * 5. Write sum to file "<DIR_NAME>.txt" - this should be task output.
+ * 6. Check that inputs/outputs works: change contents of files, delete files, etc.
+ */
+
+// ------------ START EDITING HERE ----------------------
+
+import groovy.io.FileType
+
+file('dirs').traverse(type: FileType.DIRECTORIES) { File dir ->
+
+    task(dir.name) << {
+        def sum = 0
+        dir.eachFile(FileType.FILES) {
+            sum += it.text as Integer
+        }
+        new File(dir.parentFile, dir.name + '.txt').text = sum
+    }
+
+    project."$dir.name" {
+        inputs.dir dir
+        outputs.file new File(dir.parentFile, dir.name + '.txt')
+    }
+
+    tasks.findByPath(dir.parentFile.name)?.dependsOn(dir.name)
+}
+
+// ------------ STOP EDITING HERE  ----------------------

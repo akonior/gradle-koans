@@ -1,6 +1,8 @@
 /*
  * INSTRUCTION:
  * ===========
+ * 1. Define task zip that create archive.zip file from toZip directory excluding all *.secret files
+ * 2. Count archive.zip.MD5
  */
 
 // ------------ START EDITING HERE ----------------------

@@ -1,6 +1,11 @@
 /*
  * INSTRUCTION:
  * ===========
+ * 
+ * 1. Configure multilanguage project.
+ * 2. Write separate tasks for unit and integration tests.
+ * 3. Configure jar task so that it is 'shaded jar' (or 'fat jar') i.e. it includes all dependencies.
+ * 4. Configure main class in jar manifest.
  */
 
 // ------------ START EDITING HERE ----------------------
@@ -20,7 +25,7 @@ sourceSets {
             srcDirs = ['groovy-src', 'java-src']
         }
     }
-    
+
     testUnit.groovy.srcDirs = ['unit-test']
     testIntegration.groovy.srcDirs = ['integration-test']
 }
@@ -47,17 +52,17 @@ test {
 
 dependencies {
     compile 'org.codehaus.groovy:groovy:2.1.7'
-    
+
     testUnitCompile 'org.spockframework:spock-core:0.7-groovy-2.0'
     testUnitCompile sourceSets.main.output
-    
+
     testIntegrationCompile 'org.spockframework:spock-core:0.7-groovy-2.0'
     testIntegrationCompile sourceSets.main.output
 }
 
 jar {
     from configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
-    manifest { attributes 'Main-Class': 'pl.warsjawa.WarsJava' }   
+    manifest { attributes 'Main-Class': 'pl.warsjawa.WarsJava' }
 }
 // ------------ STOP EDITING HERE  ----------------------
 

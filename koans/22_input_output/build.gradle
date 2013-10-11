@@ -7,11 +7,14 @@
  * 4. Those files should be task inputs.
  * 5. Write sum to file "<DIR_NAME>.txt" - this should be task output. Save it as dir sibling.
  * 6. Check that inputs/outputs works: change contents of files, delete files, etc.
+ * 7. Write clean<DIR_NAME> tasks that deletes appropriate task outputs
  */
 
 // ------------ START EDITING HERE ----------------------
 
 import groovy.io.FileType
+
+task clean
 
 file('dirs').traverse(type: FileType.DIRECTORIES) { File dir ->
 
@@ -29,6 +32,13 @@ file('dirs').traverse(type: FileType.DIRECTORIES) { File dir ->
     }
 
     tasks.findByPath(dir.parentFile.name)?.dependsOn(dir.name)
+
+    task "clean${dir.name}" << {
+        project."$dir.name".outputs.files.each {
+            it.delete()
+        }
+    }
+    clean.dependsOn(project.tasks["clean${dir.name}"])
 }
 
 // ------------ STOP EDITING HERE  ----------------------

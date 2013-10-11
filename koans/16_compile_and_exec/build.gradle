@@ -1,6 +1,7 @@
 /*
  * INSTRUCTION:
  * ===========
+ * 1. Create task 'run' that calls pl.warsjawa.Hello.main()
  */
 
 // ------------ START EDITING HERE ----------------------

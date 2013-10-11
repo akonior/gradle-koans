@@ -1,6 +1,7 @@
 /*
  * INSTRUCTION:
  * ===========
+ * 1. Build project with variantProd or variantDev depending on 'prod' command line property
  */
 
 // ------------ START EDITING HERE ----------------------

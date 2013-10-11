@@ -1,11 +1,11 @@
 /*
  * INSTRUCTION:
  * ===========
- * 1. for every folder under 'dirs' create gradle task
- * 2. Make parent dir depends on its childrens
+ * 1. For every folder under 'dirs' create gradle task.
+ * 2. Make parent dir depends on its children folders.
  * 3. Every task should take files inside corresponding directory and sum numbers inside those files.
  * 4. Those files should be task inputs.
- * 5. Write sum to file "<DIR_NAME>.txt" - this should be task output.
+ * 5. Write sum to file "<DIR_NAME>.txt" - this should be task output. Save it as dir sibling.
  * 6. Check that inputs/outputs works: change contents of files, delete files, etc.
  */
 
